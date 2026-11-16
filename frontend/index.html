@@ -1,0 +1,234 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>NIDS Dashboard</title>-->
+
+<!--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial;-->
+<!--            background: linear-gradient(135deg, #0f172a, #020617);-->
+<!--            color: white;-->
+<!--            text-align: center;-->
+<!--            animation: fadeIn 1s ease-in;-->
+<!--        }-->
+
+<!--        @keyframes fadeIn {-->
+<!--            from {opacity: 0;}-->
+<!--            to {opacity: 1;}-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            color: #38bdf8;-->
+<!--            text-shadow: 0 0 10px #38bdf8;-->
+<!--        }-->
+
+<!--        .card {-->
+<!--            margin: 15px;-->
+<!--            padding: 15px;-->
+<!--            background: #1e293b;-->
+<!--            border-radius: 10px;-->
+<!--            display: inline-block;-->
+<!--            box-shadow: 0 0 10px #000;-->
+<!--        }-->
+
+<!--        table {-->
+<!--            margin: auto;-->
+<!--            border-collapse: collapse;-->
+<!--            width: 90%;-->
+<!--            background: #1e293b;-->
+<!--            border-radius: 10px;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        th, td {-->
+<!--            padding: 12px;-->
+<!--            border-bottom: 1px solid #334155;-->
+<!--        }-->
+
+<!--        th {-->
+<!--            background: #334155;-->
+<!--        }-->
+
+<!--        tr:hover {-->
+<!--            background: #0f172a;-->
+<!--            transition: 0.3s;-->
+<!--        }-->
+
+<!--        .NORMAL { color: #22c55e; font-weight: bold; }-->
+<!--        .SUSPICIOUS { color: #facc15; font-weight: bold; }-->
+
+<!--        /* 🔥 ATTACK BLINK EFFECT */-->
+<!--        .ATTACK {-->
+<!--            color: #ef4444;-->
+<!--            font-weight: bold;-->
+<!--            animation: blink 1s infinite;-->
+<!--        }-->
+
+<!--        @keyframes blink {-->
+<!--            50% { opacity: 0.3; }-->
+<!--        }-->
+
+<!--        .BLOCKED { color: red; font-weight: bold; }-->
+<!--        .ALLOWED { color: #22c55e; }-->
+
+<!--        #chart {-->
+<!--            margin: 20px auto;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--<h1>🚨 AI-Based Network Intrusion Detection System</h1>-->
+
+<!--<div class="card">-->
+<!--    <h3>Total Logs</h3>-->
+<!--    <p id="totalLogs">0</p>-->
+<!--</div>-->
+
+<!--<div class="card">-->
+<!--    <h3>Attacks Detected</h3>-->
+<!--    <p id="attackCount">0</p>-->
+<!--</div>-->
+
+<!--<canvas id="chart" width="600" height="200"></canvas>-->
+
+<!--<table>-->
+<!--    <thead>-->
+<!--        <tr>-->
+<!--            <th>Time</th>-->
+<!--            <th>Packet Rate</th>-->
+<!--            <th>Status</th>-->
+<!--            <th>IP</th>-->
+<!--            <th>Action</th>-->
+<!--        </tr>-->
+<!--    </thead>-->
+<!--    <tbody id="logTable"></tbody>-->
+<!--</table>-->
+
+<!--<script src="dashboard.js"></script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>NIDS Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #ffffff;
+            color: #0f172a;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        h1 {
+            color: #0369a1;
+            text-shadow: none;
+        }
+
+        .card {
+            margin: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 0 10px #cbd5e1;
+            color: #0f172a;
+        }
+
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 90%;
+            background: #f8fafc;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #cbd5e1;
+            color: #0f172a;
+        }
+
+        th {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        tr:hover {
+            background: #f1f5f9;
+            transition: 0.3s;
+        }
+
+        .NORMAL { color: #16a34a; font-weight: bold; }
+        .SUSPICIOUS { color: #ca8a04; font-weight: bold; }
+
+        /* 🔥 ATTACK BLINK EFFECT */
+        .ATTACK {
+            color: #dc2626;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.3; }
+        }
+
+        .BLOCKED { color: #dc2626; font-weight: bold; }
+        .ALLOWED { color: #16a34a; }
+
+        #chart {
+            margin: 20px auto;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🚨 AI-Based Network Intrusion Detection System</h1>
+
+<div class="card">
+    <h3>Total Logs</h3>
+    <p id="totalLogs">0</p>
+</div>
+
+<div class="card">
+    <h3>Attacks Detected</h3>
+    <p id="attackCount">0</p>
+</div>
+
+<canvas id="chart" width="600" height="200"></canvas>
+
+<table>
+    <thead>
+        <tr>
+            <th>Time</th>
+            <th>Packet Rate</th>
+            <th>Status</th>
+            <th>IP</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="logTable"></tbody>
+</table>
+
+<script src="dashboard.js"></script>
+
+</body>
+</html>

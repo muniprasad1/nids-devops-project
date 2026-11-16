@@ -1,0 +1,25 @@
+body {
+    font-family: Arial;
+    text-align: center;
+}
+
+table {
+    margin: auto;
+    border-collapse: collapse;
+    width: 60%;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.ATTACK {
+    background-color: red;
+    color: white;
+}
+
+.NORMAL {
+    background-color: green;
+    color: white;
+}
